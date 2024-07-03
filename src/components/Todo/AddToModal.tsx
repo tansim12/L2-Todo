@@ -13,11 +13,11 @@ import { Button } from "../ui/button";
 import { FormEvent, useState } from "react";
 // import { useAppDispatch } from "@/Redux/hooks";
 import { ITodo } from "@/Redux/Features/todoSlice";
-import { useAddTodoMutation, useGetTodoQuery } from "@/Redux/Api/api";
+import { useAddTodoMutation } from "@/Redux/Api/api";
 
 export function AddToModal() {
   const [task, setTask] = useState("");
-  const { refetch } = useGetTodoQuery(undefined);
+
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("high");
 
@@ -25,7 +25,7 @@ export function AddToModal() {
   // const dispatch = useAppDispatch();
 
   // using redux RTK query mutation  with post server
-  const [addTodo, { data }] = useAddTodoMutation();
+  const [addTodo] = useAddTodoMutation();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -42,10 +42,6 @@ export function AddToModal() {
     // using rtk query and post server
     addTodo(payload);
   };
-
-  if (data) {
-    refetch();
-  }
 
   return (
     <Dialog>
