@@ -6,13 +6,24 @@ export const baseApi = createApi({
   endpoints: (builder) => ({
     // main end points methods
     getTodo: builder.query({
-      query: () => ({
-        url: "/task",
-        method: "GET",
-        // and other more
-      }),
+      query: () => {
+        return {
+          url: "/tasks",
+          method: "GET",
+          // and other more
+        };
+      },
+    }),
+    addTodo: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/task",
+          method: "POST",
+          body:data
+        };
+      },
     }),
   }),
 });
 
-export const { useGetTodoQuery } = baseApi; //  useGetTodoQuery gets already hooks
+export const { useGetTodoQuery, useAddTodoMutation } = baseApi; //  useGetTodoQuery gets already hooks

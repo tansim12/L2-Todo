@@ -1,15 +1,18 @@
-import { useAppSelector } from "@/Redux/hooks";
+// import { useAppSelector } from "@/Redux/hooks";
 import { AddToModal } from "./AddToModal";
 import TodoCard from "./TodoCard";
 import { TodoFilter } from "./TodoFilter";
 import { ITodo } from "@/Redux/Features/todoSlice";
-// import { useGetTodoQuery } from "@/Redux/Api/api";
+import { useGetTodoQuery } from "@/Redux/Api/api";
 
 const TodoContainer = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  //* using local state by redux 
+  // const { todos } = useAppSelector((state) => state.todos);
 
-  // const {todos, isError, isLoading} = useGetTodoQuery(undefined) 
-  // using this todos.data 
+  const {data:todos } = useGetTodoQuery(undefined) 
+  // using this todos.data  get by redux rtk query and server 
+
+
   return (
     <>
       {/* filter and add todo button  */}
@@ -20,8 +23,8 @@ const TodoContainer = () => {
       <div className="bg-primary-gradient rounded-lg p-2">
         {/* card   */}
         <div className="bg-white p-5 w-full h-full rounded-lg">
-          {todos.length ? (
-            todos.map((item: ITodo) => (
+          {todos?.data?.length ? (
+            todos?.data?.map((item: ITodo) => (
               <div key={item?.id}>
                 <TodoCard item={item} />
               </div>

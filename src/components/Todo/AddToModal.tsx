@@ -11,14 +11,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
 import { FormEvent, useState } from "react";
-import { useAppDispatch } from "@/Redux/hooks";
-import { ITodo, addTodo } from "@/Redux/Features/todoSlice";
+// import { useAppDispatch } from "@/Redux/hooks";
+import { ITodo } from "@/Redux/Features/todoSlice";
+import { useAddTodoMutation, useGetTodoQuery } from "@/Redux/Api/api";
 
 export function AddToModal() {
   const [task, setTask] = useState("");
+  const { refetch } = useGetTodoQuery(undefined);
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("high");
-  const dispatch = useAppDispatch();
+
+  // using redux  and manage local state
+  // const dispatch = useAppDispatch();
+
+  // using redux RTK query mutation  with post server
+  const [addTodo, { data }] = useAddTodoMutation();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const payload: ITodo = {
@@ -28,8 +36,17 @@ export function AddToModal() {
       id: Math.random().toString(32).substring(2, 7),
     };
 
-    dispatch(addTodo(payload));
+    // using redux  and manage local state
+    // dispatch(addTodo(payload));
+
+    // using rtk query and post server
+    addTodo(payload);
   };
+
+  if (data) {
+    refetch();
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -74,7 +91,6 @@ export function AddToModal() {
                 onChange={(e) => setPriority(e.target.value)}
                 id="priority"
                 className="col-span-3"
-                
               />
             </div>
           </div>

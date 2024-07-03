@@ -1,4 +1,4 @@
-import {  MdOutlineDeleteForever } from "react-icons/md";
+import { MdOutlineDeleteForever } from "react-icons/md";
 import { Button } from "../ui/button";
 import {
   ITodo,
@@ -26,10 +26,10 @@ const TodoCard = ({ item }: TTodoCardProps) => {
           name="complete"
           id="complete"
         />
-        <p>{item?.priority}</p>
-        <p>{item?.title}</p>
+        <p className="flex-1">{item?.priority}</p>
+        <p className="flex-1">{item?.title}</p>
 
-        <div>
+        <div className="flex-1">
           {item?.isCompleted ? (
             <p className="text-green-500 font-semibold">Done</p>
           ) : (
@@ -37,10 +37,10 @@ const TodoCard = ({ item }: TTodoCardProps) => {
           )}
         </div>
         {/* <p>Time</p> */}
-        <p>{item?.description}</p>
+        <p className="flex-[2]">{item?.description}</p>
         {/* acton div  */}
         <div className="flex gap-5 items-center">
-         <EditToModal item={item}  />
+          <EditToModal item={item} />
           <Button
             onClick={() => dispatch(deleteTodo(item?.id))}
             className="bg-red-600"
