@@ -21,7 +21,7 @@ const TodoCard = ({ item }: TTodoCardProps) => {
   const handleComplete = (item: Partial<ITodo>) => {
     // dispatch(toggleIsComplete(id));
 
-    updateIsComplete({ id: item?._id, isCompleted: item?.isCompleted });
+    updateIsComplete({ ...item,isCompleted:!item?.isCompleted});
   };
 
   return (
@@ -32,6 +32,7 @@ const TodoCard = ({ item }: TTodoCardProps) => {
           type="checkbox"
           name="complete"
           id="complete"
+          checked={item?.isCompleted}
         />
         <p className="flex-1">{item?.priority}</p>
         <p className="flex-1">{item?.title}</p>

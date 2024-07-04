@@ -44,11 +44,22 @@ export const baseApi = createApi({
     }),
     toggleComplete: builder.mutation({
       query: (data) => {
-        const { id } = data;
+        const { _id, ...body } = data;
         return {
-          url: `/task/${id}`,
+          url: `/task/${_id}`,
           method: "PUT",
-          body:{isCompleted:!data?.isCompleted}
+          body:body
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
+    updateTodo: builder.mutation({
+      query: (data) => {
+        const { _id , ...body} = data;
+        return {
+          url: `/task/${_id}`,
+          method: "PUT",
+          body:body
         };
       },
       invalidatesTags: ["todo"],
@@ -56,5 +67,5 @@ export const baseApi = createApi({
   }),
 });
 
-export const { useGetTodoQuery, useAddTodoMutation, useDeleteTodoMutation, useToggleCompleteMutation } =
+export const { useGetTodoQuery, useAddTodoMutation, useDeleteTodoMutation, useToggleCompleteMutation, useUpdateTodoMutation } =
   baseApi; //  useGetTodoQuery gets already hooks
