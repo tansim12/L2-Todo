@@ -10,14 +10,15 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { IoFilter } from "react-icons/io5";
-import { useAppDispatch } from "@/Redux/hooks";
-import { filterPriority } from "@/Redux/Features/todoSlice";
+// import { useAppDispatch } from "@/Redux/hooks";
+// import { filterPriority } from "@/Redux/Features/todoSlice";
 
-export function TodoFilter() {
-  const dispatch = useAppDispatch();
+export function TodoFilter({setPriority}) {
+  // const dispatch = useAppDispatch();
   useState("bottom");
   const handleSelectPriority = (value: string) => {
-    dispatch(filterPriority(value));
+    // dispatch(filterPriority(value));
+    setPriority(value)
   };
   return (
     <DropdownMenu>

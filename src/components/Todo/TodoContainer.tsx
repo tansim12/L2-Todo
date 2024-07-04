@@ -4,12 +4,16 @@ import TodoCard from "./TodoCard";
 import { TodoFilter } from "./TodoFilter";
 import { ITodo } from "@/Redux/Features/todoSlice";
 import { useGetTodoQuery } from "@/Redux/Api/api";
+import { useState } from "react";
 
 const TodoContainer = () => {
+const [priority , setPriority] = useState("")
+
+
   //* using local state by redux 
   // const { todos } = useAppSelector((state) => state.todos);
 
-  const {data:todos } = useGetTodoQuery(undefined) 
+  const {data:todos } = useGetTodoQuery(priority)    // putin  query value 
   // using this todos.data  get by redux rtk query and server 
 
 
@@ -18,7 +22,7 @@ const TodoContainer = () => {
       {/* filter and add todo button  */}
       <div className="flex justify-between p-2">
         <AddToModal />
-        <TodoFilter />
+        <TodoFilter setPriority={setPriority} />
       </div>
       <div className="bg-primary-gradient rounded-lg p-2">
         {/* card   */}

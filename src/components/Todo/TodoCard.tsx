@@ -2,21 +2,22 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { Button } from "../ui/button";
 import {
   ITodo,
-  deleteTodo,
   toggleIsComplete,
 } from "@/Redux/Features/todoSlice";
 import { useAppDispatch } from "@/Redux/hooks";
 import { EditToModal } from "./EditToModal";
+import { useDeleteTodoMutation } from "@/Redux/Api/api";
 interface TTodoCardProps {
   item: ITodo;
 }
 
 const TodoCard = ({ item }: TTodoCardProps) => {
+  const [deleteTodo] = useDeleteTodoMutation()
   const dispatch = useAppDispatch();
-
   const handleComplete = (id: string) => {
     dispatch(toggleIsComplete(id));
   };
+
   return (
     <div>
       <div className="flex justify-between items-center gap-3 bg-white p-2 rounded-lg my-3 border border-gray-400">
@@ -42,7 +43,7 @@ const TodoCard = ({ item }: TTodoCardProps) => {
         <div className="flex gap-5 items-center">
           <EditToModal item={item} />
           <Button
-            onClick={() => dispatch(deleteTodo(item?.id))}
+            onClick={() => deleteTodo({id:item?._id})}
             className="bg-red-600"
           >
             <MdOutlineDeleteForever size={20} />

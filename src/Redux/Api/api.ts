@@ -7,9 +7,9 @@ export const baseApi = createApi({
   endpoints: (builder) => ({
     // main end points methods
     getTodo: builder.query({
-      query: () => {
+      query: (data) => {
         return {
-          url: "/tasks",
+          url: `/tasks?priority=${data}`,
           method: "GET",
           // and other more
         };
@@ -26,7 +26,18 @@ export const baseApi = createApi({
       },
       invalidatesTags:["todo"]
     }),
+    deleteTodo: builder.mutation({
+      query: (data) => {
+        const {id} = data
+        return {
+          url: `/task/${id}`,
+          method: "DELETE",
+          
+        };
+      },
+      invalidatesTags:["todo"]
+    }),
   }),
 });
 
-export const { useGetTodoQuery, useAddTodoMutation } = baseApi; //  useGetTodoQuery gets already hooks
+export const { useGetTodoQuery, useAddTodoMutation, useDeleteTodoMutation } = baseApi; //  useGetTodoQuery gets already hooks
